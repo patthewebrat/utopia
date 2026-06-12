@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>UTOPIA — render test</title>
+    <style>
+      html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #070B0E; }
+      #world { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+      #rt-ui {
+        position: absolute; top: 10px; left: 10px; z-index: 10;
+        font: 12px ui-monospace, monospace; color: #D8E6EA;
+        background: rgba(13,20,26,0.88); border: 1px solid #1FB6C9; border-radius: 6px;
+        padding: 10px; max-width: 320px;
+      }
+      #rt-ui button {
+        background: #0D141A; color: #37E0F2; border: 1px solid #1A7E8C; border-radius: 4px;
+        font: 11px ui-monospace, monospace; padding: 3px 7px; margin: 2px; cursor: pointer;
+      }
+      #rt-ui button:hover { border-color: #FFB347; color: #FFB347; }
+      #rt-ui button.active { background: #1FB6C9; color: #070B0E; }
+      #rt-stats { margin-top: 6px; color: #7E949C; white-space: pre; }
+    </style>
+  </head>
+  <body>
+    <canvas id="world"></canvas>
+    <div id="rt-ui">
+      <div><b>UTOPIA render test</b> — drag RMB/MMB, WASD, wheel zoom</div>
+      <div id="rt-biomes"></div>
+      <div>
+        <button id="rt-ghost">ghost: off</button>
+        <button id="rt-boom">boom</button>
+        <button id="rt-deposits">deposits: on</button>
+      </div>
+      <div id="rt-stats"></div>
+    </div>
+    <script type="module" src="/src/rendertest.ts"></script>
+  </body>
+</html>
