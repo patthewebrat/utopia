@@ -18,12 +18,13 @@ import { openAdvisers } from './panels/advisers';
 import { openSpy } from './panels/spy';
 import { openMapScreen } from './panels/mapScreen';
 import { openDisk, saveToFile, loadFromFile } from './panels/disk';
+import { openManual } from './panels/manual';
 import { ADVISERS } from './portraits';
 
 export type { UIContext, UiMode, AudioApi } from './context';
 export { setUiMode } from './context';
 export { mountTitle } from './title';
-export { openBuildingInfo, openUnitOrders, openBuildPalette, openMapScreen, openDisk };
+export { openBuildingInfo, openUnitOrders, openBuildPalette, openMapScreen, openDisk, openManual };
 export { showBriefing, showGameOver, showInvention, showMedal } from './modals';
 export { toast, closePanel, currentPanelId } from './panels';
 export { saveToFile, loadFromFile } from './panels/disk';
@@ -46,6 +47,7 @@ export function mountUI(ctx: UIContext, uiRoot: HTMLElement): UIHandle {
     openTrade: () => openTrade(ctx),
     openSpy: () => openSpy(ctx),
     openDisk: () => openDisk(ctx),
+    openManual: () => openManual(ctx),
   });
   initPanelLayer(uiRoot);
   initModalLayer(uiRoot);
@@ -103,6 +105,8 @@ export function mountUI(ctx: UIContext, uiRoot: HTMLElement): UIHandle {
       setUiMode(ctx, ctx.mode === 'demolish' ? 'info' : 'demolish');
     } else if (k === 'm' || k === 'M') {
       openMapScreen(ctx);
+    } else if (k === 'h' || k === 'H' || k === '?') {
+      openManual(ctx);
     } else if (k === 'Escape') {
       if (currentPanelId()) closePanel(ctx);
       else setUiMode(ctx, 'info');

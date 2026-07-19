@@ -34,6 +34,7 @@ Node 20+ and a modern browser.
 | `F1`–`F6` | The six advisers (Psychiatrist, Administrator, Finance, Engineer, Research, Commander) |
 | `1`–`8` | Place/move a tactical marker on the hovered tile |
 | `Shift+D` | Clear all markers |
+| `H` / `?` | Colony Manual — in-game player guide |
 
 ## Saving and loading
 

@@ -38,6 +38,7 @@ export const icons = {
   stop: svg('<rect x="6" y="6" width="12" height="12" rx="1.5"/>'),
   research: svg('<path d="M10 3h4M11 3v6L5.5 18.5A2 2 0 0 0 7.3 21h9.4a2 2 0 0 0 1.8-2.5L13 9V3"/><path d="M8 15h8"/>'),
   speed: svg('<path d="M4 12a8 8 0 1 1 16 0"/><path d="M12 12l5-4"/><path d="M7 20h10"/>'),
+  manual: svg('<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H12v16H6.5A2.5 2.5 0 0 0 4 21.5Z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H12v16h5.5a2.5 2.5 0 0 1 2.5 2.5Z"/><path d="M7 7.5h2.5M7 10.5h2.5"/>'),
 } as const;
 
 export type IconName = keyof typeof icons;

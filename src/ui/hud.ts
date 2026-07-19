@@ -16,6 +16,7 @@ export interface HudActions {
   openTrade(): void;
   openSpy(): void;
   openDisk(): void;
+  openManual(): void;
 }
 
 export interface HudHandle {
@@ -137,6 +138,7 @@ export function mountHud(ctx: UIContext, uiRoot: HTMLElement, actions: HudAction
   mkRail('advisers', 'advisers', 'Advisers (F1–F6)', actions.openAdvisers);
   mkRail('spy', 'spy', 'Spying', actions.openSpy);
   rail.appendChild(el('div', 'u-rail-sep'));
+  mkRail('manual', 'manual', 'Colony Manual (H)', actions.openManual);
   mkRail('disk', 'disk', 'Disk / Options', actions.openDisk);
   mkRail('fullscreen', 'fullscreen', 'Fullscreen', () => {
     if (document.fullscreenElement) void document.exitFullscreen();
