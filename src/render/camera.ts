@@ -32,6 +32,13 @@ export class Camera {
   private boundsMinX = -1e9; private boundsMaxX = 1e9;
   private boundsMinY = -1e9; private boundsMaxY = 1e9;
 
+  /** UI chrome insets (CSS px). The top status strip and the right icon rail are
+   *  painted over the canvas and swallow pointer events, so an edge band tucked
+   *  underneath them can never be reached. Start those bands below/inside the
+   *  chrome instead. Kept in sync with --top-h / --rail-w in resize(). */
+  private insetTop = 0;
+  private insetRight = 0;
+
   private detachFns: (() => void)[] = [];
 
   constructor(canvas: HTMLCanvasElement) {
@@ -101,12 +108,17 @@ export class Camera {
     const m = 160;
     this.boundsMinX = (0 - mapH) * HALF_W - m;
     this.boundsMaxX = mapW * HALF_W + m;
-    this.boundsMinY = -m;
+    // symmetric headroom: the top strip hides ~40px of world, so give the north
+    // edge the same slack the south edge already had
+    this.boundsMinY = -m - 150;
     this.boundsMaxY = (mapW + mapH) * HALF_H + m + 150;
   }
 
   resize(): void {
     this.dpr = Math.min(3, window.devicePixelRatio || 1);
+    const cs = getComputedStyle(document.documentElement);
+    this.insetTop = parseFloat(cs.getPropertyValue('--top-h')) || 0;
+    this.insetRight = parseFloat(cs.getPropertyValue('--rail-w')) || 0;
     const w = this.canvas.clientWidth || window.innerWidth;
     const h = this.canvas.clientHeight || window.innerHeight;
     this.viewW = w;
@@ -137,8 +149,8 @@ export class Camera {
     if (this.edgeScroll && !this.dragging && this.mouseX >= 0 && document.hasFocus()) {
       let ex = 0, ey = 0;
       if (this.mouseX < EDGE_PX) ex = -1;
-      else if (this.mouseX > this.viewW - EDGE_PX) ex = 1;
-      if (this.mouseY < EDGE_PX) ey = -1;
+      else if (this.mouseX > this.viewW - this.insetRight - EDGE_PX) ex = 1;
+      if (this.mouseY < this.insetTop + EDGE_PX) ey = -1;
       else if (this.mouseY > this.viewH - EDGE_PX) ey = 1;
       if (ex || ey) {
         this.tx += ex * EDGE_PAN * dt / this.zoom;
